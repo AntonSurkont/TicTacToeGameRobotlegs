@@ -3,6 +3,8 @@ import component.Pile;
 
 import model.MainModel;
 
+import util.AppUtil;
+
 public class MainController {
 	private const ROW:int = 0;
 	private const COLUMN:int = 1;
@@ -12,7 +14,7 @@ public class MainController {
 	private var _model:MainModel;
 
 	public function MainController(model:MainModel) {
-		this._model = model;
+		_model = model;
 	}
 
 	public function startNewRound(pile:Pile):void {
@@ -33,11 +35,11 @@ public class MainController {
 	public function startNewGame():void {
 		_model.hasWinner = false;
 		_model.round = 1;
-		_model.playerId = MainModel.getPlayerId();
+		_model.playerId = AppUtil.getDefaultPlayerId();
 
 		var pile:Pile;
-		for (var i:int = 0; i < TicTacToeGameRobotlegs.DIMENSION; i++) {
-			for (var j:int = 0; j < TicTacToeGameRobotlegs.DIMENSION; j++) {
+		for (var i:int = 0; i < AppUtil.DIMENSION; i++) {
+			for (var j:int = 0; j < AppUtil.DIMENSION; j++) {
 				pile = _model.piles[i][j];
 				pile.reset();
 			}
@@ -47,7 +49,7 @@ public class MainController {
 	private function somePlayerWins():Boolean {
 		var result:Boolean = false;
 
-		for (var i:int = 0; i < TicTacToeGameRobotlegs.DIMENSION; i++) {
+		for (var i:int = 0; i < AppUtil.DIMENSION; i++) {
 			if (checkWinSet(ROW, i))
 				return true;
 			if (checkWinSet(COLUMN, i))
@@ -79,7 +81,7 @@ public class MainController {
 					pile = _model.piles[j][j];
 					break;
 				case SECOND_DIAGONAL:
-					pile = _model.piles[j][TicTacToeGameRobotlegs.DIMENSION - 1 - j];
+					pile = _model.piles[j][AppUtil.DIMENSION - 1 - j];
 					break;
 			}
 			if (pile.selectedFlag == Pile.SELECTED_FLAG_NOTHING)
@@ -98,7 +100,7 @@ public class MainController {
 	}
 
 	private function blinkWinPiles(piles:Array):void {
-		for (var j:int = 0; j < TicTacToeGameRobotlegs.DIMENSION; j++) {
+		for (var j:int = 0; j < AppUtil.DIMENSION; j++) {
 			Pile(piles[j]).blink();
 		}
 	}

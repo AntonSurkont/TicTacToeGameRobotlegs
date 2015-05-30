@@ -1,16 +1,15 @@
 package model {
 import flash.events.Event;
-import flash.events.EventDispatcher;
 
-public class MainModel extends EventDispatcher {
-	public static const WIDTH:int = 500;
-	public static const HEIGHT:int = 650;
+import org.robotlegs.mvcs.Actor;
 
-	public var playersArr:Array = ["A", "B"];
-	public var piles:Array= [[], [], []];
+public class MainModel extends Actor {
+	private var _playersArr:Array = ["A", "B"];
 
-	public function MainModel() {
-		_playerId = getPlayerId();
+	private var _piles:Array = [[], [], []];
+
+	public function get piles():Array {
+		return _piles;
 	}
 
 	private var _round:int = 1;
@@ -22,7 +21,7 @@ public class MainModel extends EventDispatcher {
 	public function set round(value:int):void {
 		if (_round != value) {
 			_round = value;
-			dispatchEvent(new Event(Event.CHANGE));
+			dispatch(new Event(Event.CHANGE));
 		}
 	}
 
@@ -35,7 +34,7 @@ public class MainModel extends EventDispatcher {
 	public function set playerId(value:int):void {
 		if (_playerId != value) {
 			_playerId = value;
-			dispatchEvent(new Event(Event.CHANGE));
+			dispatch(new Event(Event.CHANGE));
 		}
 	}
 
@@ -48,12 +47,12 @@ public class MainModel extends EventDispatcher {
 	public function set hasWinner(value:Boolean):void {
 		if (_hasWinner != value) {
 			_hasWinner = value;
-			dispatchEvent(new Event(Event.CHANGE));
+			dispatch(new Event(Event.CHANGE));
 		}
 	}
 
-	public static function getPlayerId():int {
-		return Math.round(Math.random());
+	public function getPlayerName(playerId:int):String {
+		return _playersArr[playerId];
 	}
 }
 }

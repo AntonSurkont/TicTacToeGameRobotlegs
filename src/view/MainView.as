@@ -3,12 +3,7 @@ import component.Pile;
 import component.Restart;
 import component.Title;
 
-import controller.IAppController;
-
-import event.PileEvent;
-
 import flash.display.Sprite;
-import flash.events.MouseEvent;
 
 import model.IAppModel;
 
@@ -23,14 +18,7 @@ public class MainView extends Sprite {
 		_model = value;
 	}
 
-	private var _controller:IAppController;
-
-	public function set controller(value:IAppController):void {
-		_controller = value;
-	}
-
 	public function MainView() {
-		addEventListener(PileEvent.CLICK, onPileClick);
 	}
 
 	public function setTitle():void {
@@ -66,16 +54,7 @@ public class MainView extends Sprite {
 		var restart:Restart = new Restart();
 		restart.x = 100;
 		restart.y = AppUtil.HEIGHT - 84;
-		restart.addEventListener(MouseEvent.CLICK, onRestartClick);
 		addChild(restart);
-	}
-
-	public function onPileClick(e:PileEvent):void {
-		_controller.startNewRound(Pile(e.target));
-	}
-
-	public function onRestartClick(e:MouseEvent):void {
-		_controller.startNewGame();
 	}
 }
 }

@@ -35,7 +35,6 @@ public class TicTacToe extends Sprite {
 	public function createChildren():void {
 		_controller.model = _model;
 		_view = new MainView();
-		_view.controller = _controller;
 		addChild(_view);
 	}
 }

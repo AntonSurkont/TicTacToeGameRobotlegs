@@ -1,5 +1,5 @@
 package mediator {
-import controller.AppController;
+import controller.IAppController;
 
 import model.IAppModel;
 
@@ -13,7 +13,7 @@ public class AppMediator extends Mediator {
 	public var appModel:IAppModel;
 
 	[Inject]
-	public var appController:AppController;
+	public var appController:IAppController;
 
 	override public function onRegister():void {
 		appView.model = appModel;

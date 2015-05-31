@@ -15,18 +15,21 @@ import model.MainModel;
 import util.AppUtil;
 
 public class MainView extends Sprite {
-	private var _model:MainModel;
-	private var _controller:MainController;
-
 	private var titleTextField:Title;
+
+	private var _model:MainModel;
 
 	public function set model(value:MainModel):void {
 		_model = value;
 	}
 
-	public function MainView(controller:MainController) {
-		_controller = controller;
+	private var _controller:MainController;
 
+	public function set controller(value:MainController):void {
+		_controller = value;
+	}
+
+	public function MainView() {
 		addEventListener(PileEvent.CLICK, onPileClick);
 	}
 

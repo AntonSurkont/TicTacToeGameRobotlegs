@@ -17,11 +17,12 @@ public class TicTacToe extends Sprite {
 	private var _view:MainView;
 
 	private var _model:MainModel;
-	private var _controller:MainController;
 
 	public function set model(value:MainModel):void {
 		_model = value;
 	}
+
+	private var _controller:MainController;
 
 	public function set controller(value:MainController):void {
 		_controller = value;
@@ -32,9 +33,9 @@ public class TicTacToe extends Sprite {
 	}
 
 	public function createChildren():void {
-		//_model = new MainModel();
-		_controller = new MainController(_model);
-		_view = new MainView(_controller);
+		_controller.model = _model;
+		_view = new MainView();
+		_view.controller = _controller;
 		addChild(_view);
 	}
 }

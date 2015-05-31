@@ -13,8 +13,11 @@ public class MainController {
 
 	private var _model:MainModel;
 
-	public function MainController(model:MainModel) {
-		_model = model;
+	public function set model(value:MainModel):void {
+		_model = value;
+	}
+
+	public function MainController() {
 	}
 
 	public function startNewRound(pile:Pile):void {

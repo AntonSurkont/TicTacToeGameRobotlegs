@@ -1,35 +1,35 @@
 package {
-import context.TicTacToeContext;
+import context.AppContext;
 
-import controller.MainController;
+import controller.IAppController;
 
 import flash.display.Sprite;
 
-import model.MainModel;
+import model.IAppModel;
 
 import view.MainView;
 
 [SWF(width="500", height="650", backgroundColor="#014A7F")]
 
 public class TicTacToe extends Sprite {
-	public var context:TicTacToeContext;
+	public var context:AppContext;
 
 	private var _view:MainView;
 
-	private var _model:MainModel;
+	private var _model:IAppModel;
 
-	public function set model(value:MainModel):void {
+	public function set model(value:IAppModel):void {
 		_model = value;
 	}
 
-	private var _controller:MainController;
+	private var _controller:IAppController;
 
-	public function set controller(value:MainController):void {
+	public function set controller(value:IAppController):void {
 		_controller = value;
 	}
 
 	public function TicTacToe() {
-		context = new TicTacToeContext(this);
+		context = new AppContext(this);
 	}
 
 	public function createChildren():void {

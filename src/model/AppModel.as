@@ -3,9 +3,7 @@ import flash.events.Event;
 
 import org.robotlegs.mvcs.Actor;
 
-public class MainModel extends Actor {
-	private var _playersArr:Array = ["A", "B"];
-
+public class AppModel extends Actor implements IAppModel {
 	private var _piles:Array = [[], [], []];
 
 	public function get piles():Array {
@@ -49,10 +47,6 @@ public class MainModel extends Actor {
 			_hasWinner = value;
 			dispatch(new Event(Event.CHANGE));
 		}
-	}
-
-	public function getPlayerName(playerId:int):String {
-		return _playersArr[playerId];
 	}
 }
 }

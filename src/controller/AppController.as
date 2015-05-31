@@ -1,23 +1,23 @@
 package controller {
 import component.Pile;
 
-import model.MainModel;
+import model.IAppModel;
 
 import util.AppUtil;
 
-public class MainController {
+public class AppController implements IAppController {
 	private const ROW:int = 0;
 	private const COLUMN:int = 1;
 	private const FIRST_DIAGONAL:int = 2;
 	private const SECOND_DIAGONAL:int = 3;
 
-	private var _model:MainModel;
+	private var _model:IAppModel;
 
-	public function set model(value:MainModel):void {
+	public function set model(value:IAppModel):void {
 		_model = value;
 	}
 
-	public function MainController() {
+	public function AppController() {
 	}
 
 	public function startNewRound(pile:Pile):void {

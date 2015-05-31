@@ -2,7 +2,7 @@ package mediator {
 
 import flash.events.Event;
 
-import model.MainModel;
+import model.IAppModel;
 
 import org.robotlegs.mvcs.Mediator;
 
@@ -13,10 +13,10 @@ public class MainViewMediator extends Mediator {
 	public var mainView:MainView;
 
 	[Inject]
-	public var mainModel:MainModel;
+	public var appModel:IAppModel;
 
 	override public function onRegister():void {
-		mainView.model = mainModel;
+		mainView.model = appModel;
 
 		addContextListener(Event.CHANGE, onModelChanged);
 

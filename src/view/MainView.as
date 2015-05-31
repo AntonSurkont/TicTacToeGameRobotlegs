@@ -3,29 +3,29 @@ import component.Pile;
 import component.Restart;
 import component.Title;
 
-import controller.MainController;
+import controller.IAppController;
 
 import event.PileEvent;
 
 import flash.display.Sprite;
 import flash.events.MouseEvent;
 
-import model.MainModel;
+import model.IAppModel;
 
 import util.AppUtil;
 
 public class MainView extends Sprite {
 	private var titleTextField:Title;
 
-	private var _model:MainModel;
+	private var _model:IAppModel;
 
-	public function set model(value:MainModel):void {
+	public function set model(value:IAppModel):void {
 		_model = value;
 	}
 
-	private var _controller:MainController;
+	private var _controller:IAppController;
 
-	public function set controller(value:MainController):void {
+	public function set controller(value:IAppController):void {
 		_controller = value;
 	}
 
@@ -35,10 +35,10 @@ public class MainView extends Sprite {
 
 	public function setTitle():void {
 		if (!_model.hasWinner) {
-			titleTextField.setRoundText(_model.round, _model.getPlayerName(_model.playerId));
+			titleTextField.setRoundText(_model.round, AppUtil.getPlayerName(_model.playerId));
 		}
 		else {
-			titleTextField.setWinnerText(_model.getPlayerName(_model.playerId));
+			titleTextField.setWinnerText(AppUtil.getPlayerName(_model.playerId));
 		}
 	}
 
@@ -47,7 +47,7 @@ public class MainView extends Sprite {
 		titleTextField.width = AppUtil.WIDTH;
 		titleTextField.height = 70;
 		titleTextField.y = Math.round((titleTextField.height - titleTextField.textHeight) / 2);
-		titleTextField.setRoundText(_model.round, _model.getPlayerName(_model.playerId));
+		titleTextField.setRoundText(_model.round, AppUtil.getPlayerName(_model.playerId));
 		addChild(titleTextField);
 	}
 

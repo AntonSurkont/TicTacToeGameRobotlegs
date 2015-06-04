@@ -14,12 +14,13 @@ public class Title extends TextField {
 		this.defaultTextFormat = newFormat;
 	}
 
-	public function setRoundText(round:int, player:String):void {
-		this.text = "ROUND " + round + ": PLAYER " + player;
-	}
-
-	public function setWinnerText(player:String):void {
-		this.text = "Player " +  player + " win the game";
+	public function setText(round:int, player:String, hasWinner:Boolean = false):void {
+		if (!hasWinner) {
+			this.text = "ROUND " + round + ": PLAYER " + player;
+		}
+		else {
+			this.text = "Player " +  player + " win the game";
+		}
 	}
 }
 }

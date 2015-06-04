@@ -20,10 +20,8 @@ public class AppContext extends Context {
 	}
 
 	override public function startup():void {
-		injector.mapSingleton(AppModel);
-		injector.mapValue(IAppModel, injector.getInstance(AppModel));
-		injector.mapSingleton(AppController);
-		injector.mapValue(IAppController, injector.getInstance(AppController));
+		injector.mapSingletonOf(IAppModel, AppModel);
+		injector.mapSingletonOf(IAppController, AppController);
 
 		mediatorMap.mapView(MainView, MainViewMediator);
 		mediatorMap.mapView(TicTacToe, AppMediator);

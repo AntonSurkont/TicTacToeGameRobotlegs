@@ -12,6 +12,8 @@ import model.IAppModel;
 
 import org.robotlegs.mvcs.Mediator;
 
+import util.AppUtil;
+
 import view.MainView;
 
 public class MainViewMediator extends Mediator {
@@ -25,20 +27,30 @@ public class MainViewMediator extends Mediator {
 	public var appController:IAppController;
 
 	override public function onRegister():void {
-		mainView.model = appModel;
-
 		addViewListener(PileEvent.CLICK, onPileClick);
 		addViewListener(RestartEvent.CLICK, onRestartClick);
 
 		addContextListener(Event.CHANGE, onModelChanged);
 
-		mainView.createTitle();
-		mainView.createPiles();
+		createPiles();
+
+		mainView.createTitle(appModel.round, AppUtil.getPlayerName(appModel.playerId));
 		mainView.createRestart();
 	}
 
+	private function createPiles():void {
+		var pile:Pile;
+		for (var i:int = 0; i < AppUtil.DIMENSION; i++) {
+			for (var j:int = 0; j < AppUtil.DIMENSION; j++) {
+				pile = new Pile(MainView.HORIZONTAL_PILES_GAP + j * Pile.WIDTH, MainView.VERTICAL_PILES_GAP + i * Pile.HEIGHT);
+				appModel.piles[i].push(pile);
+				mainView.addChild(pile);
+			}
+		}
+	}
+
 	private function onModelChanged(event:Event):void {
-		mainView.setTitle();
+		mainView.setTitle(appModel.round, AppUtil.getPlayerName(appModel.playerId), appModel.hasWinner);
 	}
 
 	private function onPileClick(e:PileEvent):void {

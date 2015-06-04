@@ -1,53 +1,31 @@
 package view {
-import component.Pile;
 import component.Restart;
 import component.Title;
 
 import flash.display.Sprite;
 
-import model.IAppModel;
-
 import util.AppUtil;
 
 public class MainView extends Sprite {
+	public static const HORIZONTAL_PILES_GAP:int = 40;
+	public static const VERTICAL_PILES_GAP:int = 105;
+
 	private var titleTextField:Title;
-
-	private var _model:IAppModel;
-
-	public function set model(value:IAppModel):void {
-		_model = value;
-	}
 
 	public function MainView() {
 	}
 
-	public function setTitle():void {
-		if (!_model.hasWinner) {
-			titleTextField.setRoundText(_model.round, AppUtil.getPlayerName(_model.playerId));
-		}
-		else {
-			titleTextField.setWinnerText(AppUtil.getPlayerName(_model.playerId));
-		}
+	public function setTitle(round:int, player:String, hasWinner:Boolean):void {
+		titleTextField.setText(round, player, hasWinner);
 	}
 
-	public function createTitle():void {
+	public function createTitle(round:int, player:String):void {
 		titleTextField = new Title();
 		titleTextField.width = AppUtil.WIDTH;
 		titleTextField.height = 70;
 		titleTextField.y = Math.round((titleTextField.height - titleTextField.textHeight) / 2);
-		titleTextField.setRoundText(_model.round, AppUtil.getPlayerName(_model.playerId));
+		titleTextField.setText(round, player);
 		addChild(titleTextField);
-	}
-
-	public function createPiles():void {
-		var pile:Pile;
-		for (var i:int = 0; i < AppUtil.DIMENSION; i++) {
-			for (var j:int = 0; j < AppUtil.DIMENSION; j++) {
-				pile = new Pile(40 + j * Pile.WIDTH, 105 + i * Pile.HEIGHT);
-				_model.piles[i].push(pile);
-				addChild(pile);
-			}
-		}
 	}
 
 	public function createRestart():void {

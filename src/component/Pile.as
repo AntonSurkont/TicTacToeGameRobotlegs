@@ -30,12 +30,10 @@ public class Pile extends Sprite {
 	private var blinkTimer:Timer = new Timer(200);
 	private var timerFlag:int;
 
-	public function Pile(x:int, y:int) {
+	public function Pile() {
 		this.buttonMode = true;
 		this.useHandCursor = true;
 		this.graphics.lineStyle(BORDER_THICKNESS, BORDER_COLOR);
-		this.x = x;
-		this.y = y;
 		this.graphics.beginFill(BACKGROUND_COLOR);
 		this.graphics.drawRect(0, 0, WIDTH, HEIGHT);
 		this.graphics.endFill();

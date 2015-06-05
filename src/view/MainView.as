@@ -1,4 +1,5 @@
 package view {
+import component.Pile;
 import component.Restart;
 import component.Title;
 
@@ -17,6 +18,14 @@ public class MainView extends Sprite {
 
 	public function setTitle(round:int, player:String, hasWinner:Boolean):void {
 		titleTextField.setText(round, player, hasWinner);
+	}
+
+	public function createPile(row:int, column:int):Pile {
+		var pile:Pile = new Pile();
+		pile.x = MainView.HORIZONTAL_PILES_GAP + column * Pile.WIDTH;
+		pile.y = MainView.VERTICAL_PILES_GAP + row * Pile.HEIGHT;
+		addChild(pile);
+		return pile;
 	}
 
 	public function createTitle(round:int, player:String):void {

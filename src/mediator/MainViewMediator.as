@@ -39,12 +39,9 @@ public class MainViewMediator extends Mediator {
 	}
 
 	private function createPiles():void {
-		var pile:Pile;
 		for (var i:int = 0; i < AppUtil.DIMENSION; i++) {
 			for (var j:int = 0; j < AppUtil.DIMENSION; j++) {
-				pile = new Pile(MainView.HORIZONTAL_PILES_GAP + j * Pile.WIDTH, MainView.VERTICAL_PILES_GAP + i * Pile.HEIGHT);
-				appModel.piles[i].push(pile);
-				mainView.addChild(pile);
+				appModel.piles[i].push( mainView.createPile(i,j) );
 			}
 		}
 	}

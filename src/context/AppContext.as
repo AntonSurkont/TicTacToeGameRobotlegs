@@ -1,10 +1,12 @@
 package context {
-import controller.AppController;
-import controller.IAppController;
+import controller.StartNewGameCommand;
+import controller.StartNewRoundCommand;
+
+import event.PileEvent;
+import event.RestartEvent;
 
 import flash.display.DisplayObjectContainer;
 
-import mediator.AppMediator;
 import mediator.MainViewMediator;
 
 import model.AppModel;
@@ -20,11 +22,12 @@ public class AppContext extends Context {
 	}
 
 	override public function startup():void {
+		commandMap.mapEvent(PileEvent.CLICK, StartNewRoundCommand, PileEvent);
+		commandMap.mapEvent(RestartEvent.CLICK, StartNewGameCommand);
+
 		injector.mapSingletonOf(IAppModel, AppModel);
-		injector.mapSingletonOf(IAppController, AppController);
 
 		mediatorMap.mapView(MainView, MainViewMediator);
-		mediatorMap.mapView(TicTacToe, AppMediator);
 
 		contextView.addChild(new MainView());
 	}

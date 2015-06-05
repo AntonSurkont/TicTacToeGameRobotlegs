@@ -7,5 +7,7 @@ public interface IAppModel {
 	function set playerId(value:int):void;
 	function get hasWinner():Boolean;
 	function set hasWinner(value:Boolean):void;
+	function isSomePlayerWins():Boolean;
+	function nextRound():void;
 }
 }

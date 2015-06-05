@@ -89,7 +89,7 @@ public class Pile extends Sprite {
 
 	private function onClick(event:Event):void {
 		if (selectedFlag == 0)
-			dispatchEvent(new PileEvent(PileEvent.CLICK));
+			dispatchEvent(new PileEvent(PileEvent.CLICK, this));
 	}
 
 	private function onTimer(event:Event):void {

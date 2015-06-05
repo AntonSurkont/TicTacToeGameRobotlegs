@@ -1,8 +1,4 @@
 package mediator {
-import component.Pile;
-
-import controller.IAppController;
-
 import event.PileEvent;
 import event.RestartEvent;
 
@@ -22,9 +18,6 @@ public class MainViewMediator extends Mediator {
 
 	[Inject]
 	public var appModel:IAppModel;
-
-	[Inject]
-	public var appController:IAppController;
 
 	override public function onRegister():void {
 		addViewListener(PileEvent.CLICK, onPileClick);
@@ -51,11 +44,11 @@ public class MainViewMediator extends Mediator {
 	}
 
 	private function onPileClick(e:PileEvent):void {
-		appController.startNewRound(Pile(e.target));
+		dispatch(e.clone());
 	}
 
 	private function onRestartClick(e:RestartEvent):void {
-		appController.startNewGame();
+		dispatch(e.clone());
 	}
 }
 }

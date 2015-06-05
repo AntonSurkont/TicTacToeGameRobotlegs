@@ -25,6 +25,8 @@ public class AppContext extends Context {
 
 		mediatorMap.mapView(MainView, MainViewMediator);
 		mediatorMap.mapView(TicTacToe, AppMediator);
+
+		contextView.addChild(new MainView());
 	}
 }
 }

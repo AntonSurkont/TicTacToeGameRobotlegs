@@ -16,9 +16,7 @@ public class AppMediator extends Mediator {
 	public var appController:IAppController;
 
 	override public function onRegister():void {
-		appView.model = appModel;
-		appView.controller = appController;
-		appView.createChildren();
+		appController.model = appModel;
 	}
 }
 }

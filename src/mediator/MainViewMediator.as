@@ -27,7 +27,7 @@ public class MainViewMediator extends Mediator {
 
 		createPiles();
 
-		mainView.createTitle(appModel.round, AppUtil.getPlayerName(appModel.playerId));
+		mainView.createTitle(appModel.round, AppUtil.getPlayerNameById(appModel.playerId));
 		mainView.createRestart();
 	}
 
@@ -40,7 +40,7 @@ public class MainViewMediator extends Mediator {
 	}
 
 	private function onModelChanged(event:Event):void {
-		mainView.setTitle(appModel.round, AppUtil.getPlayerName(appModel.playerId), appModel.hasWinner);
+		mainView.setTitle(appModel.round, AppUtil.getPlayerNameById(appModel.playerId), appModel.hasWinner);
 	}
 
 	private function onPileClick(e:PileEvent):void {

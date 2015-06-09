@@ -78,7 +78,7 @@ public class AppModel extends Actor implements IAppModel {
 
 	public function nextRound():void {
 		round++;
-		playerId = playerId == 0 ? 1 : 0;
+		playerId = AppUtil.getNextPlayerId(playerId);
 	}
 
 	private function checkWinSet(flag:int, i:int = 0):Boolean {

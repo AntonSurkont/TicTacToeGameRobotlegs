@@ -1,19 +1,14 @@
-package component {
-import event.RestartEvent;
-
+package view.ui {
 import flash.display.Sprite;
-import flash.events.MouseEvent;
 import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 
-public class Restart extends Sprite {
+public class RestartButton extends Sprite {
 	private static const BACKGROUND_COLOR:uint = 0x014A7F;
 	private static const BORDER_COLOR:uint = 0xFFFFFF;
 
-	public function Restart() {
-		addEventListener(MouseEvent.CLICK, onMouseClick);
-
+	public function RestartButton() {
 		var newFormat:TextFormat = new TextFormat();
 		newFormat.color = 0xFFFFFF;
 		newFormat.size = 26;
@@ -41,10 +36,6 @@ public class Restart extends Sprite {
 		restartTextField.y = 7;
 		restartTextField.text = "START A NEW GAME";
 		addChild(restartTextField);
-	}
-
-	public function onMouseClick(e:MouseEvent):void {
-		dispatchEvent(new RestartEvent(RestartEvent.CLICK));
 	}
 }
 }

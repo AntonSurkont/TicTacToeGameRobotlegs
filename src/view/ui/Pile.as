@@ -1,9 +1,6 @@
-package component {
-import event.PileEvent;
-
+package view.ui {
 import flash.display.Sprite;
 import flash.events.Event;
-import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 
@@ -54,7 +51,7 @@ public class Pile extends Sprite {
 		content.graphics.beginFill(BACKGROUND_COLOR);
 		content.graphics.drawCircle(WIDTH / 2, HEIGHT / 2, CIRCLE_RADIUS - SYMBOL_THICKNESS);
 		content.graphics.endFill();
-		selectedFlag = 1;
+		selectedFlag = SELECTED_FLAG_CIRCLE;
 	}
 
 	public function drawMark():void {
@@ -64,12 +61,12 @@ public class Pile extends Sprite {
 		content.graphics.lineTo(WIDTH - MARK_PADDING, HEIGHT - MARK_PADDING);
 		content.graphics.moveTo(MARK_PADDING, HEIGHT - MARK_PADDING);
 		content.graphics.lineTo(WIDTH - MARK_PADDING, MARK_PADDING);
-		selectedFlag = 2;
+		selectedFlag = SELECTED_FLAG_MARK;
 	}
 
 	public function reset():void {
 		content.graphics.clear();
-		selectedFlag = 0;
+		selectedFlag = SELECTED_FLAG_NOTHING;
 	}
 
 	public function blink():void {
@@ -78,18 +75,11 @@ public class Pile extends Sprite {
 	}
 
 	private function onAddedToStage(event:Event):void {
-		this.addEventListener(MouseEvent.CLICK, onClick);
 		blinkTimer.addEventListener(TimerEvent.TIMER, onTimer);
 	}
 
 	private function onRemovedFromStage(event:Event):void {
-		this.removeEventListener(MouseEvent.CLICK, onClick);
 		blinkTimer.removeEventListener(TimerEvent.TIMER, onTimer);
-	}
-
-	private function onClick(event:Event):void {
-		if (selectedFlag == 0)
-			dispatchEvent(new PileEvent(PileEvent.CLICK, this));
 	}
 
 	private function onTimer(event:Event):void {

@@ -1,4 +1,4 @@
-package event {
+package controller.event {
 import flash.events.Event;
 
 public class RestartEvent extends Event {

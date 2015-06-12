@@ -1,5 +1,5 @@
-package event {
-import component.Pile;
+package controller.event {
+import view.ui.Pile;
 
 import flash.events.Event;
 

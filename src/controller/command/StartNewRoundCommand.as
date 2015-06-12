@@ -1,7 +1,7 @@
-package controller {
-import component.Pile;
+package controller.command {
+import view.ui.Pile;
 
-import event.PileEvent;
+import controller.event.PileEvent;
 
 import model.IAppModel;
 

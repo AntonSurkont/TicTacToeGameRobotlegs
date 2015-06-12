@@ -1,11 +1,11 @@
 package model {
-import component.Pile;
+import view.ui.Pile;
 
 import flash.events.Event;
 
 import org.robotlegs.mvcs.Actor;
 
-import util.AppUtil;
+import model.util.PlayerUtil;
 
 public class AppModel extends Actor implements IAppModel {
 	private const ROW:int = 0;
@@ -61,7 +61,7 @@ public class AppModel extends Actor implements IAppModel {
 	public function isSomePlayerWins():Boolean {
 		var result:Boolean = false;
 
-		for (var i:int = 0; i < AppUtil.DIMENSION; i++) {
+		for (var i:int = 0; i < PlayerUtil.DIMENSION; i++) {
 			if (checkWinSet(ROW, i))
 				return true;
 			if (checkWinSet(COLUMN, i))
@@ -78,7 +78,7 @@ public class AppModel extends Actor implements IAppModel {
 
 	public function nextRound():void {
 		round++;
-		playerId = AppUtil.getNextPlayerId(playerId);
+		playerId = PlayerUtil.getNextPlayerId(playerId);
 	}
 
 	private function checkWinSet(flag:int, i:int = 0):Boolean {
@@ -98,7 +98,7 @@ public class AppModel extends Actor implements IAppModel {
 					pile = _piles[j][j];
 					break;
 				case SECOND_DIAGONAL:
-					pile = _piles[j][AppUtil.DIMENSION - 1 - j];
+					pile = _piles[j][PlayerUtil.DIMENSION - 1 - j];
 					break;
 			}
 			if (pile.selectedFlag == Pile.SELECTED_FLAG_NOTHING)
@@ -117,7 +117,7 @@ public class AppModel extends Actor implements IAppModel {
 	}
 
 	private function blinkWinPiles(piles:Array):void {
-		for (var j:int = 0; j < AppUtil.DIMENSION; j++) {
+		for (var j:int = 0; j < PlayerUtil.DIMENSION; j++) {
 			Pile(piles[j]).blink();
 		}
 	}

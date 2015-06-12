@@ -1,11 +1,11 @@
 package view {
-import component.Pile;
-import component.Restart;
-import component.Title;
+import view.ui.Pile;
+import view.ui.RestartButton;
+import view.ui.Title;
 
 import flash.display.Sprite;
 
-import util.AppUtil;
+import model.util.PlayerUtil;
 
 public class MainView extends Sprite {
 	public static const HORIZONTAL_PILES_GAP:int = 40;
@@ -30,7 +30,7 @@ public class MainView extends Sprite {
 
 	public function createTitle(round:int, player:String):void {
 		titleTextField = new Title();
-		titleTextField.width = AppUtil.WIDTH;
+		titleTextField.width = PlayerUtil.WIDTH;
 		titleTextField.height = 70;
 		titleTextField.y = Math.round((titleTextField.height - titleTextField.textHeight) / 2);
 		titleTextField.setText(round, player);
@@ -38,9 +38,9 @@ public class MainView extends Sprite {
 	}
 
 	public function createRestart():void {
-		var restart:Restart = new Restart();
+		var restart:RestartButton = new RestartButton();
 		restart.x = 100;
-		restart.y = AppUtil.HEIGHT - 84;
+		restart.y = PlayerUtil.HEIGHT - 84;
 		addChild(restart);
 	}
 }

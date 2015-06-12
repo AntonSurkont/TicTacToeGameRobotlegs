@@ -1,4 +1,4 @@
-package component {
+package view.ui {
 import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;

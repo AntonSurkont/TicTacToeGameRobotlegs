@@ -1,5 +1,5 @@
 package {
-import context.AppContext;
+import AppContext;
 
 import flash.display.Sprite;
 

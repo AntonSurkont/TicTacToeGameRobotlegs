@@ -1,11 +1,11 @@
-package controller {
-import component.Pile;
+package controller.command {
+import view.ui.Pile;
 
 import model.IAppModel;
 
 import org.robotlegs.mvcs.Command;
 
-import util.AppUtil;
+import model.util.PlayerUtil;
 
 public class StartNewGameCommand extends Command {
 	[Inject]
@@ -14,11 +14,11 @@ public class StartNewGameCommand extends Command {
 	override public function execute():void {
 		appModel.hasWinner = false;
 		appModel.round = 1;
-		appModel.playerId = AppUtil.getDefaultPlayerId();
+		appModel.playerId = PlayerUtil.getDefaultPlayerId();
 
 		var pile:Pile;
-		for (var i:int = 0; i < AppUtil.DIMENSION; i++) {
-			for (var j:int = 0; j < AppUtil.DIMENSION; j++) {
+		for (var i:int = 0; i < PlayerUtil.DIMENSION; i++) {
+			for (var j:int = 0; j < PlayerUtil.DIMENSION; j++) {
 				pile = appModel.piles[i][j];
 				pile.reset();
 			}

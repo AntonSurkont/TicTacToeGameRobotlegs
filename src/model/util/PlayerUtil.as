@@ -1,5 +1,5 @@
-package util {
-public class AppUtil {
+package model.util {
+public class PlayerUtil {
 	public static const DIMENSION:int = 3;
 
 	public static const WIDTH:int = 500;

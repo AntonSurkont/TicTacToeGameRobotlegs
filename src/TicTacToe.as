@@ -1,6 +1,4 @@
 package {
-import AppContext;
-
 import flash.display.Sprite;
 
 [SWF(width="500", height="650", backgroundColor="#014A7F")]

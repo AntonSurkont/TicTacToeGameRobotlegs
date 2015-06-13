@@ -1,5 +1,6 @@
 package {
 import controller.bootstrap.BootstrapCommands;
+import controller.bootstrap.BootstrapConfigValues;
 import controller.bootstrap.BootstrapModels;
 import controller.bootstrap.BootstrapViewMediators;
 
@@ -18,6 +19,7 @@ public class AppContext extends Context {
 		new BootstrapCommands(commandMap);
 		new BootstrapModels(injector);
 		new BootstrapViewMediators(mediatorMap);
+		new BootstrapConfigValues(injector);
 
 		addRootView();
 

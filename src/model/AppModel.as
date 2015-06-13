@@ -1,17 +1,23 @@
 package model {
+import model.value.DefaultFieldDimension;
+
 import view.ui.Pile;
 
 import flash.events.Event;
 
 import org.robotlegs.mvcs.Actor;
 
-import model.util.PlayerUtil;
-
 public class AppModel extends Actor implements IAppModel {
 	private const ROW:int = 0;
 	private const COLUMN:int = 1;
 	private const FIRST_DIAGONAL:int = 2;
 	private const SECOND_DIAGONAL:int = 3;
+
+	[Inject]
+	public var playerModel:IPlayerModel;
+
+	[Inject]
+	public var defaultFieldDimension:DefaultFieldDimension;
 
 	private var winPiles:Array = [];
 
@@ -26,19 +32,6 @@ public class AppModel extends Actor implements IAppModel {
 	public function set round(value:int):void {
 		if (_round != value) {
 			_round = value;
-			dispatch(new Event(Event.CHANGE));
-		}
-	}
-
-	private var _playerId:int = 0;
-
-	public function get playerId():int {
-		return _playerId;
-	}
-
-	public function set playerId(value:int):void {
-		if (_playerId != value) {
-			_playerId = value;
 			dispatch(new Event(Event.CHANGE));
 		}
 	}
@@ -62,8 +55,8 @@ public class AppModel extends Actor implements IAppModel {
 
 	public function resetAllPiles():void {
 		var pile:Pile;
-		for (var i:int = 0; i < PlayerUtil.DIMENSION; i++) {
-			for (var j:int = 0; j < PlayerUtil.DIMENSION; j++) {
+		for (var i:int = 0; i < defaultFieldDimension.value; i++) {
+			for (var j:int = 0; j < defaultFieldDimension.value; j++) {
 				pile = piles[i][j];
 				pile.reset();
 			}
@@ -71,7 +64,7 @@ public class AppModel extends Actor implements IAppModel {
 	}
 
 	public function isSomePlayerWins():Boolean {
-		for (var i:int = 0; i < PlayerUtil.DIMENSION; i++) {
+		for (var i:int = 0; i < defaultFieldDimension.value; i++) {
 			if (haveWinningSet(ROW, i))
 				return true;
 			if (haveWinningSet(COLUMN, i))
@@ -88,11 +81,11 @@ public class AppModel extends Actor implements IAppModel {
 
 	public function nextRound():void {
 		round++;
-		playerId = PlayerUtil.getNextPlayerId(playerId);
+		playerModel.nextPlayer();
 	}
 
 	public function blinkWinPiles():void {
-		for (var i:int = 0; i < PlayerUtil.DIMENSION; i++) {
+		for (var i:int = 0; i < defaultFieldDimension.value; i++) {
 			Pile(winPiles[i]).blink();
 		}
 	}
@@ -113,7 +106,7 @@ public class AppModel extends Actor implements IAppModel {
 					pile = piles[j][j];
 					break;
 				case SECOND_DIAGONAL:
-					pile = piles[j][PlayerUtil.DIMENSION - 1 - j];
+					pile = piles[j][defaultFieldDimension.value - 1 - j];
 					break;
 			}
 			if (pile.isEmpty())

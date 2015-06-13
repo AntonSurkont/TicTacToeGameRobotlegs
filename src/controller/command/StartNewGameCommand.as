@@ -1,19 +1,21 @@
 package controller.command {
 import model.IAppModel;
+import model.IPlayerModel;
 
 import org.robotlegs.mvcs.Command;
-
-import model.util.PlayerUtil;
 
 public class StartNewGameCommand extends Command {
 	[Inject]
 	public var appModel:IAppModel;
 
+	[Inject]
+	public var playerModel:IPlayerModel;
+
 	override public function execute():void {
 		appModel.hasWinner = false;
 		appModel.round = 1;
-		appModel.playerId = PlayerUtil.getDefaultPlayerId();
 		appModel.resetAllPiles();
+		playerModel.resetPlayerId();
 	}
 }
 }

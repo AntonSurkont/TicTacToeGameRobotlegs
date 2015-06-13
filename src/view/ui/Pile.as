@@ -8,9 +8,9 @@ public class Pile extends Sprite {
 	public static const WIDTH:int = 140;
 	public static const HEIGHT:int = 140;
 
-	public static const SELECTED_FLAG_NOTHING:int = 0;
-	public static const SELECTED_FLAG_CIRCLE:int = 1;
-	public static const SELECTED_FLAG_MARK:int = 2;
+	private static const STATE_NONE:int = 0;
+	private static const STATE_CIRCLE:int = 1;
+	private static const STATE_CROSS:int = 2;
 
 	private static const BORDER_THICKNESS:int = 4;
 	private static const SYMBOL_THICKNESS:int = 10;
@@ -20,12 +20,18 @@ public class Pile extends Sprite {
 	private static const CIRCLE_RADIUS:int = 46;
 	private static const MARK_PADDING:int = 30;
 
-	public var selectedFlag:int = 0;// 1 - circle; 2 - mark; 0 - nothing
+	private static const NUMBER_OF_BLINKS:int = 8;
 
 	private var content:Sprite;
 
 	private var blinkTimer:Timer = new Timer(200);
-	private var timerFlag:int;
+	private var numberOfBlinks:int;
+
+	private var _state:int = STATE_NONE;
+
+	public function get state():int {
+		return _state;
+	}
 
 	public function Pile() {
 		this.buttonMode = true;
@@ -42,6 +48,10 @@ public class Pile extends Sprite {
 		addChild(content);
 	}
 
+	public function isEmpty():Boolean {
+		return _state == STATE_NONE;
+	}
+
 	public function drawCircle():void {
 		content.graphics.clear();
 		content.graphics.beginFill(SYMBOL_COLOR);
@@ -51,26 +61,26 @@ public class Pile extends Sprite {
 		content.graphics.beginFill(BACKGROUND_COLOR);
 		content.graphics.drawCircle(WIDTH / 2, HEIGHT / 2, CIRCLE_RADIUS - SYMBOL_THICKNESS);
 		content.graphics.endFill();
-		selectedFlag = SELECTED_FLAG_CIRCLE;
+		_state = STATE_CIRCLE;
 	}
 
-	public function drawMark():void {
+	public function drawCross():void {
 		content.graphics.clear();
 		content.graphics.lineStyle(SYMBOL_THICKNESS, SYMBOL_COLOR);
 		content.graphics.moveTo(MARK_PADDING, MARK_PADDING);
 		content.graphics.lineTo(WIDTH - MARK_PADDING, HEIGHT - MARK_PADDING);
 		content.graphics.moveTo(MARK_PADDING, HEIGHT - MARK_PADDING);
 		content.graphics.lineTo(WIDTH - MARK_PADDING, MARK_PADDING);
-		selectedFlag = SELECTED_FLAG_MARK;
+		_state = STATE_CROSS;
 	}
 
 	public function reset():void {
 		content.graphics.clear();
-		selectedFlag = SELECTED_FLAG_NOTHING;
+		_state = STATE_NONE;
 	}
 
 	public function blink():void {
-		timerFlag = 8;
+		numberOfBlinks = NUMBER_OF_BLINKS;
 		blinkTimer.start();
 	}
 
@@ -84,8 +94,8 @@ public class Pile extends Sprite {
 
 	private function onTimer(event:Event):void {
 		blinkTimer.stop();
-		timerFlag--;
-		if (timerFlag > 0) {
+		numberOfBlinks--;
+		if (numberOfBlinks > 0) {
 			content.visible = !content.visible;
 			blinkTimer.start();
 		}

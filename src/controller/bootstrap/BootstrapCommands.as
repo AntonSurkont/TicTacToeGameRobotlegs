@@ -9,7 +9,7 @@ import org.robotlegs.core.ICommandMap;
 
 public class BootstrapCommands {
 	public function BootstrapCommands(commandMap:ICommandMap) {
-		commandMap.mapEvent(PileEvent.CLICK, StartNewRoundCommand, PileEvent);
+		commandMap.mapEvent(PileEvent.CLICK, StartNewRoundCommand);
 		commandMap.mapEvent(RestartEvent.CLICK, StartNewGameCommand);
 	}
 }

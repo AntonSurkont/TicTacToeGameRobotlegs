@@ -9,10 +9,10 @@ import model.util.PlayerUtil;
 
 public class MainViewMediator extends Mediator {
 	[Inject]
-	public var mainView:MainView;
+	public var appModel:IAppModel;
 
 	[Inject]
-	public var appModel:IAppModel;
+	public var mainView:MainView;
 
 	override public function onRegister():void {
 		addContextListener(Event.CHANGE, onModelChanged);
@@ -24,11 +24,13 @@ public class MainViewMediator extends Mediator {
 	}
 
 	private function createPiles():void {
+		var piles:Array = [[], [], []];
 		for (var i:int = 0; i < PlayerUtil.DIMENSION; i++) {
 			for (var j:int = 0; j < PlayerUtil.DIMENSION; j++) {
-				appModel.piles[i].push( mainView.createPile(i,j) );
+				piles[i].push( mainView.createPile(i,j) );
 			}
 		}
+		appModel.setPiles(piles);
 	}
 
 	private function onModelChanged(event:Event):void {

@@ -1,6 +1,4 @@
 package controller.command {
-import view.ui.Pile;
-
 import model.IAppModel;
 
 import org.robotlegs.mvcs.Command;
@@ -15,14 +13,7 @@ public class StartNewGameCommand extends Command {
 		appModel.hasWinner = false;
 		appModel.round = 1;
 		appModel.playerId = PlayerUtil.getDefaultPlayerId();
-
-		var pile:Pile;
-		for (var i:int = 0; i < PlayerUtil.DIMENSION; i++) {
-			for (var j:int = 0; j < PlayerUtil.DIMENSION; j++) {
-				pile = appModel.piles[i][j];
-				pile.reset();
-			}
-		}
+		appModel.resetAllPiles();
 	}
 }
 }

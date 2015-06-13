@@ -3,9 +3,14 @@ import controller.event.PileEvent;
 
 import flash.events.MouseEvent;
 
+import model.IAppModel;
+
 import org.robotlegs.mvcs.Mediator;
 
 public class PileMediator extends Mediator {
+	[Inject]
+	public var appModel:IAppModel;
+
 	[Inject]
 	public var view:Pile;
 
@@ -14,8 +19,10 @@ public class PileMediator extends Mediator {
 	}
 
 	public function onMouseClick(e:MouseEvent):void {
-		if (view.selectedFlag == 0)
-			dispatch(new PileEvent(PileEvent.CLICK, view));
+		if (!appModel.hasWinner && view.isEmpty()) {
+			appModel.round % 2 == 0 ? view.drawCircle() : view.drawCross();
+			dispatch(new PileEvent(PileEvent.CLICK));
+		}
 	}
 }
 }

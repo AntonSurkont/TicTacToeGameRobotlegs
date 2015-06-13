@@ -13,11 +13,9 @@ public class AppModel extends Actor implements IAppModel {
 	private const FIRST_DIAGONAL:int = 2;
 	private const SECOND_DIAGONAL:int = 3;
 
-	private var _piles:Array = [[], [], []];
+	private var winPiles:Array = [];
 
-	public function get piles():Array {
-		return _piles;
-	}
+	private var piles:Array;
 
 	private var _round:int = 1;
 
@@ -58,22 +56,34 @@ public class AppModel extends Actor implements IAppModel {
 		}
 	}
 
-	public function isSomePlayerWins():Boolean {
-		var result:Boolean = false;
+	public function setPiles(piles:Array):void {
+		this.piles = piles;
+	}
 
+	public function resetAllPiles():void {
+		var pile:Pile;
 		for (var i:int = 0; i < PlayerUtil.DIMENSION; i++) {
-			if (checkWinSet(ROW, i))
+			for (var j:int = 0; j < PlayerUtil.DIMENSION; j++) {
+				pile = piles[i][j];
+				pile.reset();
+			}
+		}
+	}
+
+	public function isSomePlayerWins():Boolean {
+		for (var i:int = 0; i < PlayerUtil.DIMENSION; i++) {
+			if (haveWinningSet(ROW, i))
 				return true;
-			if (checkWinSet(COLUMN, i))
+			if (haveWinningSet(COLUMN, i))
 				return true;
 		}
 
-		if (checkWinSet(FIRST_DIAGONAL))
+		if (haveWinningSet(FIRST_DIAGONAL))
 			return true;
-		if (checkWinSet(SECOND_DIAGONAL))
+		if (haveWinningSet(SECOND_DIAGONAL))
 			return true;
 
-		return result;
+		return false;
 	}
 
 	public function nextRound():void {
@@ -81,45 +91,43 @@ public class AppModel extends Actor implements IAppModel {
 		playerId = PlayerUtil.getNextPlayerId(playerId);
 	}
 
-	private function checkWinSet(flag:int, i:int = 0):Boolean {
-		var result:Boolean = true;
+	public function blinkWinPiles():void {
+		for (var i:int = 0; i < PlayerUtil.DIMENSION; i++) {
+			Pile(winPiles[i]).blink();
+		}
+	}
+
+	private function haveWinningSet(flag:int, i:int = 0):Boolean {
 		var pile:Pile;
-		var winPiles:Array = [];
-		var selectedFlag:int;
+		var firstPileState:int;
+		winPiles = [];
 		for (var j:int = 0; j < 3; j++) {
 			switch (flag) {
 				case ROW:
-					pile = _piles[i][j];
+					pile = piles[i][j];
 					break;
 				case COLUMN:
-					pile = _piles[j][i];
+					pile = piles[j][i];
 					break;
 				case FIRST_DIAGONAL:
-					pile = _piles[j][j];
+					pile = piles[j][j];
 					break;
 				case SECOND_DIAGONAL:
-					pile = _piles[j][PlayerUtil.DIMENSION - 1 - j];
+					pile = piles[j][PlayerUtil.DIMENSION - 1 - j];
 					break;
 			}
-			if (pile.selectedFlag == Pile.SELECTED_FLAG_NOTHING)
+			if (pile.isEmpty())
 				return false;
-			winPiles.push(pile);
 			if (j == 0) {
-				selectedFlag = pile.selectedFlag;
+				firstPileState = pile.state;
 			}
 			else {
-				if (selectedFlag != pile.selectedFlag)
+				if (firstPileState != pile.state)
 					return false;
 			}
+			winPiles.push(pile);
 		}
-		blinkWinPiles(winPiles);
-		return result;
-	}
-
-	private function blinkWinPiles(piles:Array):void {
-		for (var j:int = 0; j < PlayerUtil.DIMENSION; j++) {
-			Pile(piles[j]).blink();
-		}
+		return true;
 	}
 }
 }
